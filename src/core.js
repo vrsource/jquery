@@ -1,5 +1,3 @@
-var jQuery = (function() {
-
 // Define a local copy of jQuery
 var jQuery = function( selector, context ) {
 		// The jQuery object is actually just the init constructor 'enhanced'
@@ -933,7 +931,3 @@ function doScrollCheck() {
 	// and execute any waiting functions
 	jQuery.ready();
 }
-
-return jQuery;
-
-})();

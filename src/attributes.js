@@ -1,5 +1,3 @@
-(function( jQuery ) {
-
 var rclass = /[\n\t\r]/g,
 	rspace = /\s+/,
 	rreturn = /\r/g,
@@ -658,5 +656,3 @@ jQuery.each([ "radio", "checkbox" ], function() {
 		}
 	});
 });
-
-})( jQuery );

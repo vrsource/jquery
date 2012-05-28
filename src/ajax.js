@@ -1,5 +1,3 @@
-(function( jQuery ) {
-
 var r20 = /%20/g,
 	rbracket = /\[\]$/,
 	rCRLF = /\r?\n/g,
@@ -994,5 +992,3 @@ function ajaxConvert( s, response ) {
 	}
 	return response;
 }
-
-})( jQuery );
