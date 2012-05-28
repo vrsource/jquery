@@ -1,5 +1,18 @@
-// Define a local copy of jQuery
-var jQuery = function( selector, context ) {
+// Use the correct document accordingly with window argument (sandbox)
+var document = window.document,
+	navigator = window.navigator,
+	location = window.location,
+
+	// Save a reference to some core methods
+	toString = Object.prototype.toString,
+	hasOwn = Object.prototype.hasOwnProperty,
+	push = Array.prototype.push,
+	slice = Array.prototype.slice,
+	trim = String.prototype.trim,
+	indexOf = Array.prototype.indexOf,
+
+	// Define a local copy of jQuery
+	jQuery = function( selector, context ) {
 		// The jQuery object is actually just the init constructor 'enhanced'
 		return new jQuery.fn.init( selector, context, rootjQuery );
 	},
@@ -68,14 +81,6 @@ var jQuery = function( selector, context ) {
 		}
 		jQuery.ready();
 	},
-
-	// Save a reference to some core methods
-	toString = Object.prototype.toString,
-	hasOwn = Object.prototype.hasOwnProperty,
-	push = Array.prototype.push,
-	slice = Array.prototype.slice,
-	trim = String.prototype.trim,
-	indexOf = Array.prototype.indexOf,
 
 	// [[Class]] -> type pairs
 	class2type = {};
