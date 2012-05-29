@@ -13,6 +13,10 @@ module.exports = function( grunt ) {
 	var option = grunt.option;
 	var config = grunt.config;
 	var template = grunt.template;
+	var distpaths = [
+		"dist/jquery.js",
+		"dist/jquery.min.js"
+	];
 
 	grunt.initConfig({
 		pkg: "<json:package.json>",
@@ -20,10 +24,7 @@ module.exports = function( grunt ) {
 			banner: "/*! jQuery v@<%= pkg.version %> jquery.com | jquery.org/license */"
 		},
 		compare_size: {
-			files: [
-				"dist/jquery.js",
-				"dist/jquery.min.js"
-			]
+			files: distpaths
 		},
 		selector: {
 			"src/selector.js": [
@@ -103,7 +104,7 @@ module.exports = function( grunt ) {
 	});
 
 	// Default grunt.
-	grunt.registerTask( "default", "selector build:*:* lint min compare_size" );
+	grunt.registerTask( "default", "submodules selector build:*:* dist:* lint min compare_size" );
 
 	grunt.loadNpmTasks("grunt-compare-size");
 
@@ -204,4 +205,51 @@ module.exports = function( grunt ) {
 			// Otherwise, print a success message.
 			log.writeln( "File '" + name + "' created." );
 		});
+
+	grunt.registerTask( "submodules", function() {
+		var done = this.async();
+
+		grunt.verbose.write( "Updating submodules..." );
+
+		// TODO: migrate remaining `make` to grunt tasks
+		//
+		grunt.utils.spawn({
+			cmd: "make"
+		}, function( err, result ) {
+			if ( err ) {
+				grunt.verbose.error();
+				done( err );
+				return;
+			}
+
+			grunt.log.writeln( result );
+
+			done();
+		});
+	});
+
+	// Allow custom dist file locations
+	grunt.registerTask( "dist", function() {
+		var keys, dir;
+
+		keys = Object.keys( this.flags );
+
+		if ( keys.length ) {
+			dir = keys[0];
+
+			if ( !/\/$/.test( dir ) ) {
+				dir += "/";
+			}
+
+			// 'distpaths' is declared at the top of the
+			// module.exports function scope.
+			distpaths.forEach(function( filename ) {
+				var created = dir + filename.replace( "dist/", "" );
+
+				file.write( created, file.read( filename ) );
+
+				log.writeln( "File '" + created + "' created." );
+			});
+		}
+	});
 };
