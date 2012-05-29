@@ -67,8 +67,8 @@ module.exports = function( grunt ) {
       files: "test/index.html"
     },
     watch: {
-      files: "<config:lint.files>",
-      tasks: "concat lint"
+      files: [ "<config:lint.files>", "src/**/*.js" ],
+      tasks: "default"
     },
     jshint: {
       options: {
