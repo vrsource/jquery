@@ -362,6 +362,8 @@ jQuery.extend = jQuery.fn.extend = function() {
 };
 
 jQuery.extend({
+	newInstance: newInstance,
+
 	noConflict: function( deep ) {
 		if ( window.$ === jQuery ) {
 			window.$ = _$;

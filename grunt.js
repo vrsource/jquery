@@ -71,7 +71,6 @@ module.exports = function( grunt ) {
 				{ flag: "effects", src: "src/effects.js", needs: ["css"] },
 				{ flag: "offset", src: "src/offset.js", needs: ["css"] },
 				{ flag: "dimensions", src: "src/dimensions.js", needs: ["css"] },
-				"src/exports.js",
 				"src/outro.js"
 			]
 		},

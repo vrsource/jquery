@@ -13,4 +13,8 @@
  *
  * Date: @DATE
  */
-(function( window, undefined ) {
+(function( win, undefined ) {
+
+win.jQuery = win.$ = (function newInstance( window ) {
+
+window = window || win;

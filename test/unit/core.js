@@ -1302,3 +1302,22 @@ test("jQuery.camelCase()", function() {
 		equal( jQuery.camelCase( key ), val, "Converts: " + key + " => " + val );
 	});
 });
+
+test("jQuery.newInstance()", function() {
+	expect( 2 );
+	var oldParseJSON = jQuery.parseJSON,
+		newInstance;
+	jQuery.parseJSON = function() {
+		throw "shouldn't be called";
+	};
+	newInstance = jQuery.newInstance();
+	strictEqual( newInstance.parseJSON( "true" ), true, "new instance does not have overriden methods" );
+	jQuery.parseJSON = oldParseJSON;
+	newInstance( "#qunit-fixture" ).append( newInstance( "<div id='new-instance-id' />" ) );
+	strictEqual( jQuery( "#new-instance-id" ).length, 1, "in the same document as original jQuery" );
+});
+
+testIframeWithCallback( "jQuery.newInstance( window )", "core/newInstance", function( length ) {
+	expect( 1 );
+	strictEqual( length, 1, "new instance works in given window's document" );
+});
